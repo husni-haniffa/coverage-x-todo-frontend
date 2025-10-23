@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import {
   Card,
   CardContent,
@@ -6,24 +6,39 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Input } from "./ui/input"
 import { Button } from "./ui/button"
-import { Textarea } from "./ui/textarea"
 import { Label } from './ui/label'
+import { useTaskStore } from '@/app/store/taskStore'
+import { TaskCardSkeleton } from './ui/taskSkeleton'
 
 const CreatedTask = () => {
+  const {tasks, loadTasks, updateTask, isLoading, error} = useTaskStore()
+  useEffect(() => {
+    loadTasks()
+  },[])
+
+  if(isLoading) return <TaskCardSkeleton/>
+
+  if(!tasks || tasks.length === 0) {
+    return <Label>No ToDo's yet. Create one above!</Label>
+  }
+  
   return (
-    <Card>
-        <CardHeader>
-            <CardTitle>Task Title</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-            <Label>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate minima illo, sequi dicta accusantium voluptates expedita quos veritatis. Aliquid voluptates quasi eaque voluptatem doloribus dolorum, reiciendis magni repudiandae labore soluta?</Label>
-        </CardContent>
-        <CardFooter className="flex justify-end">
-            <Button className="bg-green-600 hover:bg-green-500">Done</Button>
-        </CardFooter>
-    </Card>
+    <>
+      {tasks.map((task) => (
+        <Card key={task.id}>
+          <CardHeader>
+              <CardTitle>{task.title}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+              <Label>{task.description}</Label>
+          </CardContent>
+          <CardFooter className="flex justify-end">
+              <Button className="bg-green-600 hover:bg-green-500" onClick={() => updateTask(task.id)}>Done</Button>
+          </CardFooter>
+        </Card>
+      ))}
+    </>
   )
 }
 
