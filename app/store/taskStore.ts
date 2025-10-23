@@ -49,6 +49,7 @@ export const useTaskStore = create<State&Action>((set) => ({
         try {
             const task = await createTask(title, description)
             set((state) => ({ isLoading: false, tasks: [...state.tasks, task]}))
+            set({ title: '', description: '' })
         } catch (error) {
             set({
                 error: error instanceof Error ? error.message : 'Failed to add task',
