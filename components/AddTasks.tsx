@@ -18,14 +18,28 @@ const AddTasks = () => {
   return (
     <Card>
         <CardHeader>
-            <CardTitle>Add a Task</CardTitle>
+            <CardTitle data-testid="cypress-add-a-task-title">Add a Task</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-            <Input placeholder="Title" value={title} onChange={(e) => updateTitle(e.currentTarget.value)}/>
-            <Textarea placeholder="Description" value={description} onChange={(e) => updateDescription(e.currentTarget.value)}/>
+            <Input 
+              placeholder="Title" value={title} 
+              onChange={(e) => updateTitle(e.currentTarget.value)}
+              data-testid="cypress-add-title-input"
+            />
+            <Textarea 
+              placeholder="Description" 
+              value={description} 
+              onChange={(e) => updateDescription(e.currentTarget.value)}
+              data-testid="cypress-add-description-textarea"/>
         </CardContent>
         <CardFooter className="flex justify-end">
-            <Button className="bg-purple-600 hover:bg-purple-700" onClick={() => addTask(title, description)}>{isLoading ? <Spinner /> : "Add"}</Button>
+            <Button 
+              className="bg-purple-600 hover:bg-purple-700" 
+              onClick={() => addTask(title, description)}
+              data-testid="cypress-add-task-button"
+              >
+                {isLoading ? <Spinner /> : "Add"}
+              </Button>
         </CardFooter>
     </Card>
   )
