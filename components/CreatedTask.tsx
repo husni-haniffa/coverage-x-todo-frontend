@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -10,6 +11,7 @@ import { Button } from "./ui/button"
 import { Label } from './ui/label'
 import { useTaskStore } from '@/app/store/taskStore'
 import { TaskCardSkeleton } from './ui/taskSkeleton'
+import { AlertMessage } from './ui/AlertMessage'
 
 const CreatedTask = () => {
   const {tasks, loadTasks, updateTask, isLoading, error} = useTaskStore()
@@ -18,6 +20,8 @@ const CreatedTask = () => {
   },[])
 
   if(isLoading) return <TaskCardSkeleton/>
+
+  if(error) return AlertMessage(error)
 
   if(!tasks || tasks.length === 0) {
     return <Label data-testid="cypress-no-task-message">No ToDo's yet. Create one above!</Label>
