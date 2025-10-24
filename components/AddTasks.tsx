@@ -1,6 +1,7 @@
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -13,7 +14,7 @@ import { Spinner } from "./ui/spinner"
 
 const AddTasks = () => {
 
-  const {title, description, updateTitle, updateDescription, addTask, isLoading, error} = useTaskStore()
+  const {title, description, updateTitle, updateDescription, addTask, isLoading} = useTaskStore()
 
   return (
     <Card>
@@ -25,8 +26,10 @@ const AddTasks = () => {
               placeholder="Title" value={title} 
               onChange={(e) => updateTitle(e.currentTarget.value)}
               data-testid="cypress-add-title-input"
+              required
             />
             <Textarea 
+              required
               placeholder="Description" 
               value={description} 
               onChange={(e) => updateDescription(e.currentTarget.value)}
@@ -37,6 +40,7 @@ const AddTasks = () => {
               className="bg-purple-600 hover:bg-purple-700" 
               onClick={() => addTask(title, description)}
               data-testid="cypress-add-task-button"
+              disabled={isLoading}
               >
                 {isLoading ? <Spinner /> : "Add"}
               </Button>
