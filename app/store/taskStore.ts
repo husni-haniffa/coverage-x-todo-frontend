@@ -13,7 +13,11 @@ interface State {
     title: string
     description: string
     isLoading: boolean
-    error: string | null
+    isAddTaskLoading: boolean
+    isDoneTaskLoading: boolean
+    loadError: string | null
+    updateError: string | null
+    addError: string | null
 }
 
 interface Action {
@@ -29,44 +33,49 @@ export const useTaskStore = create<State&Action>((set) => ({
     title: "",
     description: "",
     isLoading: false,
+    isAddTaskLoading: false,
+    isDoneTaskLoading: false,
     error: "",
+    loadError: "",
+    updateError: "",
+    addError: "",
     updateTitle: (title) => set(() => ({title: title})),
     updateDescription: (description) => set(() => ({description: description})),
     loadTasks: async () => {
-        set({ isLoading: true, error: null })
+        set({ isLoading: true, loadError: null })
         try {
             const tasks = await fetchTasks()
             set({ tasks: tasks, isLoading: false })
         } catch (error) {
             set({
-                error: error instanceof Error ? error.message : 'Failed to load tasks',
+                loadError: error instanceof Error ? error.message : 'Failed to load tasks',
                 isLoading: false
             })
         }
     },
     addTask: async (title, description) => {
-        set({ isLoading: true, error: null })
+        set({ isAddTaskLoading: true, addError: null })
         try {
             const task = await createTask(title, description)
-            set((state) => ({ isLoading: false, tasks: [...state.tasks, task]}))
+            set((state) => ({ isAddTaskLoading: false, tasks: [...state.tasks, task]}))
             set({ title: '', description: '' })
         } catch (error) {
             set({
-                error: error instanceof Error ? error.message : 'Failed to add task',
-                isLoading: false
+                addError: error instanceof Error ? error.message : 'Failed to add task',
+                isAddTaskLoading: false
             })
         }
     },
     updateTask: async(id) => {
-        set({ isLoading: true, error: null })
+        set({ isDoneTaskLoading: true, updateError: null })
         try {
             set((state) => ({tasks: state.tasks.filter((task) => task.id != id)}))
-            const task = await updateTask(id)
-            set({ isLoading: false })
+            await updateTask(id)
+            set({ isDoneTaskLoading: false })
         } catch (error) {
             set({
-                error: error instanceof Error ? error.message : 'Failed to update tasks',
-                isLoading: false
+                updateError: error instanceof Error ? error.message : 'Failed to update tasks',
+                isDoneTaskLoading: false
             })
         }
     }
