@@ -34,7 +34,7 @@ Frontend Setup
    
 3. Run the docker command in terminal
    ```bash
-   docker-compose up -d --build .
+   docker-compose up -d --build 
    ```
 4. Open [http://localhost:3000](http://localhost:3000) on the browser
 
