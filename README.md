@@ -15,7 +15,7 @@ Backend Setup
    
 3. Run the docker command in terminal
    ```bash
-   docker-compose up --build
+   docker-compose up -d
    ```
    
 5. Open [http://localhost:8080](http://localhost:8080) on the browser
