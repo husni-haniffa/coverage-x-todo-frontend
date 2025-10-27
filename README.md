@@ -1,40 +1,60 @@
-Follow the steps to run the project in Docker
+Instructions to setup the project on your computer assuming docker is installed
+Run the commands given below on two seperate terminal to build and run frontend and backend seperatly
+Once its completed open [http://localhost:3000](http://localhost:3000) on the browser
+Provide a title and description to add a task, and click done button to complete a task 
+Thats it it should be working on your computer too
 
-Backend Setup
+Backend
 
 1. Clone the repository
-
+   
    ```bash
    git clone https://github.com/husni-haniffa/coverage-x-todo-backend.git
    ```
+
+2. Navigate to the project folder
    
-2. Navigate to the project
    ```bash
    cd coverage-x-todo-backend
    ```
-   
-3. Run the docker command in terminal
+
+3. Build and run the backend
+
    ```bash
    docker-compose up -d
    ```
-   
-5. Open [http://localhost:8080](http://localhost:8080) on the browser
-   
-Frontend Setup
+
+4. Backend will be running on
+
+   [http://localhost:8080](http://localhost:8080) on the browser
+
+Frontend
 
 1. Clone the repository
+   
    ```bash
    git clone https://github.com/husni-haniffa/coverage-x-todo-frontend.git
    ```
+
+2. Navigate to the project folder
    
-2. Navigate to the project
    ```bash
    cd coverage-x-todo-frontend
    ```
-   
-3. Run the docker command in terminal
+
+3. Build and run the frontend
+
    ```bash
-   docker-compose up -d --build 
+   docker-compose up -d --build
    ```
-4. Open [http://localhost:3000](http://localhost:3000) on the browser
+
+4. Frontend will be running on
+
+   [http://localhost:3000](http://localhost:3000) on the browser
+
+The technologies that is used to develop and test is mentioned in this document for the review [https://1drv.ms/w/c/8deb51dda100a19d/EcwbCZ_NqmtHmpKX0EPXEgkBGHgZYzEeN4cNzoksDgReqw?e=gNwuKe](https://1drv.ms/w/c/8deb51dda100a19d/EcwbCZ_NqmtHmpKX0EPXEgkBGHgZYzEeN4cNzoksDgReqw?e=gNwuKe)
+
+
+   
+   
 
